@@ -7,6 +7,9 @@
         <script type="text/javascript" src="/eel.js"></script>
         <script type="text/javascript" src="../js/common.js"></script>
         <script type="text/javascript" src="../js/memo.js"></script>
+        <script>
+            window.onload = getFriend;
+        </script>
     </head>
     <body>
         <div id="container">
@@ -15,7 +18,7 @@
                     <textarea rows="33" cols="60" name="input-memo" id="input-memo"></textarea>
                 </label>
                 <button onclick="writeUser()">データ書込</button>
-                <button onclick="getFriend()">データ削除</button>
+                <button onclick="">データ削除</button>
                 <button onclick="link('search.html')">一覧</button>
             </div>
             <div id="picture">

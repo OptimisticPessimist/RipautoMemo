@@ -7,7 +7,7 @@ from src.controller import Controller
 
 
 @eel.expose
-def insert_db(data: dict[str, str]) -> None:
+def insert_user(data: dict[str, str]) -> None:
     """
     Insert data to DB.
 
@@ -17,11 +17,16 @@ def insert_db(data: dict[str, str]) -> None:
     Returns:
         None
     """
-    Controller.insert_db(data)
+    Controller.insert_user(data)
 
 
 @eel.expose
-def select_all_db() -> list[Any]:
+def update_user(id_: str, data: dict[str, str]) -> None:
+    Controller.update_user(id_, data)
+
+
+@eel.expose
+def select_all_user() -> list[Any]:
     """
     Search all friend from DB.
 
@@ -32,7 +37,7 @@ def select_all_db() -> list[Any]:
 
 
 @eel.expose
-def select_by_name_db(name: str) -> Any:
+def select_by_name(name: str) -> Any:
     """
     Search keyword in names from DB.
 
@@ -42,22 +47,17 @@ def select_by_name_db(name: str) -> Any:
     Returns:
         (User)
     """
-    return Controller.select_by_name_db(name)
+    return Controller.select_by_name(name)
 
 
 @eel.expose
-def select_by_tag_db(tag: str) -> Any:
-    return Controller.select_by_tag_db(tag)
+def select_by_tag(tag: str) -> Any:
+    return Controller.select_by_tag(tag)
 
 
 @eel.expose
-def select_by_id_db(id_: str) -> Any:
-    return Controller.select_by_id_db(id_)
-
-
-@eel.expose
-def update_by_id_db(id_: str, data: dict[str, str]) -> Any:
-    return Controller.update_by_id_db(id_, data)
+def select_by_id(id_: str) -> Any:
+    return Controller.select_by_id(id_)
 
 
 if __name__ == "__main__":

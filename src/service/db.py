@@ -23,6 +23,18 @@ def _create_db() -> None:
     Base.metadata.create_all(bind=engine)
 
 
+def _write_user(target: User, data: User) -> User:
+    target.uid = data.uid
+    target.user_name = data.user_name
+    target.nickname = data.nickname
+    target.img_path = data.img_path
+    target.met = data.met
+    target.place = data.place
+    target.tags = data.tags
+    target.memo = data.memo
+    return target
+
+
 class Users(Base):  # type: ignore
     """Schema of Users"""
 
@@ -39,7 +51,7 @@ class Users(Base):  # type: ignore
     __tablename__ = "user"
 
     @staticmethod
-    def insert(data: User) -> None:
+    def create_user(data: User) -> None:
         """
         Insert user data.
 
@@ -52,21 +64,13 @@ class Users(Base):  # type: ignore
         _create_db()
 
         session = sessionmaker(bind=engine)()
-        info = Users()
-        info.uid = data.uid
-        info.user_name = data.user_name
-        info.nickname = data.nickname
-        info.img_path = data.img_path
-        info.met = data.met
-        info.place = data.place
-        info.tags = data.tags
-        info.memo = data.memo
+        info = _write_user(Users(), data)
         session.add(instance=info)
         session.commit()
         session.close()
 
     @staticmethod
-    def select_all() -> Any:
+    def read_all() -> Any:
         """
         Get list of all users data.
 
@@ -79,7 +83,7 @@ class Users(Base):  # type: ignore
         return users
 
     @staticmethod
-    def select_by_name(name: str) -> Any:
+    def read_by_name(name: str) -> Any:
         """
         Get list of users matching the keyword by name.
 
@@ -95,7 +99,7 @@ class Users(Base):  # type: ignore
         return users
 
     @staticmethod
-    def select_by_tag(tag: str | bytes) -> Any:
+    def select_by_tag(tag: str) -> Any:
         """
         Get list of users matching the keyword by name.
 
@@ -141,9 +145,8 @@ class Users(Base):  # type: ignore
         """
         session = sessionmaker(bind=engine)()
         user = session.query(Users).filter(Users.id == id_).first()
-        user.uid = data.uid
         user.user_name = data.user_name
-        user.nickname = data.nickname
+        user.nickname = data.user_name
         user.img_path = data.img_path
         user.met = data.met
         user.place = data.place
@@ -153,7 +156,7 @@ class Users(Base):  # type: ignore
         session.close()
 
     @staticmethod
-    def select_by_id(id_: int) -> Any:
+    def read_by_id(id_: int) -> Any:
         """
 
         Args:

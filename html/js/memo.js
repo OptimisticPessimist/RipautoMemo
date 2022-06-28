@@ -37,9 +37,9 @@ async function writeUser() {
             const paramItem = item.split('=');
             paramArray[paramItem[0]] = paramItem[1];
         }
-        await eel.update_by_id_db(paramArray[0].text, userData);
+        await eel.update_user(paramArray['id'], userData)();
     } else {
-        await eel.insert_db(userData)();
+        await eel.insert_user(userData)();
     }
 }
 
@@ -64,7 +64,7 @@ async function getFriend() {
             paramArray[paramItem[0]] = paramItem[1];
         }
 
-        const user = await eel.select_by_id_db(paramArray['id'])();
+        const user = await eel.select_by_id(paramArray['id'])();
 
         let preview = document.querySelector('#preview');
         preview.src = '.' + user.img_path;

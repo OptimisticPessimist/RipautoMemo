@@ -90,23 +90,23 @@ class Users(Base):  # type: ignore
             (Any) Users list of matching the keyword
         """
         session = sessionmaker(bind=engine)()
-        users = session.query(Users).filter(Users.user_name.like(f"%{name}%"))
+        users = session.query(Users).filter(Users.user_name.like(f"%{name}%") | Users.nickname.like(f"%{name}%"))
         session.close()
         return users
 
     @staticmethod
-    def select_by_tag(tag: str) -> Any:
+    def select_by_tag(tag: str | bytes) -> Any:
         """
-        Get list of users having the tags.
+        Get list of users matching the keyword by name.
 
         Args:
             tag: keyword
 
         Returns:
-            (Any) Users having the tags list
+            (Any) Users list of matching the keyword
         """
         session = sessionmaker(bind=engine)()
-        users = session.query(Users).filter(Users.tags == tag)
+        users = session.query(Users).filter(Users.tags.like(f"%{tag}%"))
         session.close()
         return users
 
@@ -128,11 +128,32 @@ class Users(Base):  # type: ignore
         session.close()
 
     @staticmethod
-    def update_by_name(id_: str, data: User) -> None:
-        pass
+    def update_by_id(id_: str, data: User) -> None:
+        """
+        Update user data.
+
+        Args:
+            id_: id in DB
+            data: User data
+
+        Returns:
+            (None)
+        """
+        session = sessionmaker(bind=engine)()
+        user = session.query(Users).filter(Users.id == id_).first()
+        user.uid = data.uid
+        user.user_name = data.user_name
+        user.nickname = data.nickname
+        user.img_path = data.img_path
+        user.met = data.met
+        user.place = data.place
+        user.tags = data.tags
+        user.memo = data.memo
+        session.commit()
+        session.close()
 
     @staticmethod
-    def select_by_id(id_: str) -> Any:
+    def select_by_id(id_: int) -> Any:
         """
 
         Args:
@@ -142,7 +163,7 @@ class Users(Base):  # type: ignore
 
         """
         session = sessionmaker(bind=engine)()
-        target = session.query(Users).filter(Users.id == int(id_)).one()
+        target = session.query(Users).filter(Users.id == id_).one()
         session.close()
         target.met = str(target.met)
         return target

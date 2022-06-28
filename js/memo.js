@@ -28,7 +28,19 @@ async function writeUser() {
         "memo": memo
     }
 
-    await eel.insert_db(userData)();
+    const urlParam = location.search.substring(1);
+    if (urlParam) {
+        const param = urlParam.split('&');
+        let paramArray = Array();
+        let item;
+        for (item of param) {
+            const paramItem = item.split('=');
+            paramArray[paramItem[0]] = paramItem[1];
+        }
+        await eel.update_by_id_db(paramArray[0].text, userData);
+    } else {
+        await eel.insert_db(userData)();
+    }
 }
 
 

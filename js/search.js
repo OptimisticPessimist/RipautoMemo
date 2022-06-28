@@ -7,13 +7,10 @@ function deleteAllCards() {
 }
 
 
-async function addAllCards() {
-    deleteAllCards();
-    const parentElement = document.getElementById('cards');
-    const users = await eel.select_all_db()();
-
+function addCards(users) {
     let user;
     for (user of users) {
+        const parentElement = document.getElementById('cards');
         const id = user[0];
         const img_path = user[1];
         const user_name = user[2];
@@ -48,6 +45,32 @@ async function addAllCards() {
         newElement.innerHTML = content;
         parentElement.appendChild(newElement);
     }
+}
+
+
+async function addAllFriends() {
+    deleteAllCards();
+    const users = await eel.select_all_db()();
+
+    addCards(users);
+}
+
+
+async function searchName() {
+    deleteAllCards();
+    let name = document.getElementById('keyword');
+
+    const users = await eel.select_by_name_db(name.value)();
+    addCards(users);
+}
+
+
+async function searchTag() {
+    deleteAllCards();
+    let tag = document.getElementById('keyword');
+
+    const users = await eel.select_by_tag_db(tag.value)();
+    addCards(users);
 }
 
 

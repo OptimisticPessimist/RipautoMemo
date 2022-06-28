@@ -46,8 +46,18 @@ def select_by_name_db(name: str) -> Any:
 
 
 @eel.expose
+def select_by_tag_db(tag: str) -> Any:
+    return Controller.select_by_tag_db(tag)
+
+
+@eel.expose
 def select_by_id_db(id_: str) -> Any:
     return Controller.select_by_id_db(id_)
+
+
+@eel.expose
+def update_by_id_db(id_: str, data: dict[str, str]) -> Any:
+    return Controller.update_by_id_db(id_, data)
 
 
 if __name__ == "__main__":

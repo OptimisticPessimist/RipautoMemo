@@ -76,7 +76,7 @@ class User:
             self.tags = tags
         else:
             self.tags = list(tags)
-            for i in range(5 - len(self.tags)):
+            for _ in range(5 - len(self.tags)):
                 self.tags.append("")
 
         self.memo = memo

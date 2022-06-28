@@ -19,7 +19,7 @@ function addCards(users) {
         const newElement = document.createElement('div');
         newElement.classList.add('cards__item');
         let content = '<div class="card__item__content">';
-        content += '<div><img src=' + img_path + '"" width="320" height="180" onclick="linkFriend(' + id + ')"></div>';
+        content += '<div><img src=".' + img_path + '" width="320" height="180" onclick="linkFriend(' + id + ')"></div>';
         content += '<div class="cards__item__content__value">';
         content += '<div>ユーザー名: ' + user_name + '</div>';
         content += '<div>呼び方: ' + nickname + '</div>';
@@ -50,7 +50,7 @@ function addCards(users) {
 
 async function addAllFriends() {
     deleteAllCards();
-    const users = await eel.select_all_user()();
+    const users = await eel.read_all_user()();
 
     addCards(users);
 }
@@ -60,7 +60,7 @@ async function searchName() {
     deleteAllCards();
     let name = document.getElementById('keyword');
 
-    const users = await eel.select_by_name(name.value)();
+    const users = await eel.read_by_name(name.value)();
     addCards(users);
 }
 
@@ -69,7 +69,7 @@ async function searchTag() {
     deleteAllCards();
     let tag = document.getElementById('keyword');
 
-    const users = await eel.select_by_tag(tag.value)();
+    const users = await eel.read_by_tag(tag.value)();
     addCards(users);
 }
 

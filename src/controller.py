@@ -6,6 +6,15 @@ from .service.db import Users
 
 
 def _prepare_user(data: dict[str, str]) -> User:
+    """
+    Prepare user data.
+
+    Args:
+        data: dictionary of User data
+
+    Returns:
+        (User) User data
+    """
     user = User(
         uid=data["uid"],
         user_name=data["user_name"],
@@ -25,7 +34,7 @@ def _prepare_user(data: dict[str, str]) -> User:
 
 class Controller:
     @staticmethod
-    def insert_user(data: dict[str, str]) -> None:
+    def create_user(data: dict[str, str]) -> None:
         """
         Insert data to DB.
 
@@ -40,11 +49,42 @@ class Controller:
 
     @staticmethod
     def update_user(id_: str, data: dict[str, str]) -> None:
+        """
+
+        Args:
+            id_:
+            data:
+
+        Returns:
+
+        """
         user = _prepare_user(data)
+        if data["img_path"] == "":
+            user.img_path = Controller.read_by_id(id_)["img_path"]
         Users.update_by_id(id_, user)
 
     @staticmethod
+    def delete_user(id_: str) -> None:
+        """
+
+        Args:
+            id_:
+
+        Returns:
+
+        """
+        Users.delete_by_id(id_)
+
+    @staticmethod
     def result(users: list[Users]) -> list[Any]:
+        """
+
+        Args:
+            users:
+
+        Returns:
+
+        """
         result = list()
         for user in users:
             id_ = user.id
@@ -56,7 +96,7 @@ class Controller:
         return result
 
     @staticmethod
-    def select_all_db() -> list[Any]:
+    def read_all_user() -> list[Any]:
         """
         Search all friend from DB.
 
@@ -67,7 +107,7 @@ class Controller:
         return Controller.result(users)
 
     @staticmethod
-    def select_by_name(name: str) -> list[Any]:
+    def read_by_name(name: str) -> list[Any]:
         """
         Search keyword in names from DB.
 
@@ -87,14 +127,23 @@ class Controller:
         return Controller.result(users)
 
     @staticmethod
-    def select_by_tag(tag: str) -> list[Any]:
+    def read_by_tag(tag: str) -> list[Any]:
+        """
+
+        Args:
+            tag:
+
+        Returns:
+
+        """
         tag = tag.encode("unicode-escape").decode("ascii")
         users = Users.select_by_tag(tag)
         return Controller.result(users)
 
     @staticmethod
-    def select_by_id(id_: str) -> dict[str, str | list[str]]:
+    def read_by_id(id_: str) -> dict[str, str | list[str]]:
         """
+
 
         Args:
             id_:
@@ -113,3 +162,5 @@ class Controller:
         result["uid"] = user.uid
         result["memo"] = user.memo
         return result
+
+

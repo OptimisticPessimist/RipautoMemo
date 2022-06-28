@@ -5,7 +5,7 @@ from sqlalchemy import JSON, Column, Date, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-from src.config import TestConfig as Config
+from src.config import Config
 from src.domain import User
 
 DB = Config.db
@@ -23,7 +23,17 @@ def _create_db() -> None:
     Base.metadata.create_all(bind=engine)
 
 
-def _write_user(target: User, data: User) -> User:
+def _write_user(data: User, target: User) -> User:
+    """
+    Replace user data for preparing write DB.
+
+    Args:
+        data: new data
+        target: old data
+
+    Returns:
+        (User) new data
+    """
     target.uid = data.uid
     target.user_name = data.user_name
     target.nickname = data.nickname
@@ -64,7 +74,7 @@ class Users(Base):  # type: ignore
         _create_db()
 
         session = sessionmaker(bind=engine)()
-        info = _write_user(Users(), data)
+        info = _write_user(data, Users())
         session.add(instance=info)
         session.commit()
         session.close()
@@ -126,7 +136,7 @@ class Users(Base):  # type: ignore
             None
         """
         session = sessionmaker(bind=engine)()
-        target = session.query(Users).filter_by(Users.id == id_).one()
+        target = session.query(Users).filter(Users.id == id_).one()
         session.delete(target)
         session.commit()
         session.close()
@@ -144,14 +154,7 @@ class Users(Base):  # type: ignore
             (None)
         """
         session = sessionmaker(bind=engine)()
-        user = session.query(Users).filter(Users.id == id_).first()
-        user.user_name = data.user_name
-        user.nickname = data.user_name
-        user.img_path = data.img_path
-        user.met = data.met
-        user.place = data.place
-        user.tags = data.tags
-        user.memo = data.memo
+        _write_user(data, session.query(Users).filter(Users.id == id_).first())
         session.commit()
         session.close()
 
@@ -160,10 +163,10 @@ class Users(Base):  # type: ignore
         """
 
         Args:
-            id_:
+            id_: ID of DB
 
         Returns:
-
+            user datum
         """
         session = sessionmaker(bind=engine)()
         target = session.query(Users).filter(Users.id == id_).one()

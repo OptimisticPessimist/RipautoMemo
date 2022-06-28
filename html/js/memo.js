@@ -1,3 +1,4 @@
+
 async function writeUser() {
     let element = document.getElementsByName('information');
     let picture = element[0].value;
@@ -39,12 +40,39 @@ async function writeUser() {
         }
         await eel.update_user(paramArray['id'], userData)();
     } else {
-        await eel.insert_user(userData)();
+        await eel.create_user(userData)();
+    }
+    window.alert('書き込みが完了しました。')
+}
+
+
+async function deleteUser() {
+    /**
+     * Delete user data by HTML param's `id`
+     * @type {string}
+     */
+    const urlParam = location.search.substring(1);
+    if (urlParam) {
+        const param = urlParam.split('&');
+        let paramArray = Array();
+        let item;
+        for (item of param) {
+            const paramItem = item.split('=');
+            paramArray[paramItem[0]] = paramItem[1];
+        }
+        const isDelete = confirm('データを消去しますか？');
+        if (isDelete) {
+            await eel.delete_user(paramArray['id'])();
+            window.location.href = 'memo.html';
+        }
     }
 }
 
 
-function previewImage(obj) {
+async function previewImage(obj) {
+    /**
+     * Show and fitting file image
+     */
     let fileReader = new FileReader();
     fileReader.onload = (function() {
         document.getElementById("preview").src = fileReader.result;
@@ -54,6 +82,10 @@ function previewImage(obj) {
 
 
 async function getFriend() {
+    /**
+     * Show user data by HTML param's `id`
+     * @type {string}
+     */
     const urlParam = location.search.substring(1);
     if (urlParam) {
         const param = urlParam.split('&');
@@ -64,7 +96,7 @@ async function getFriend() {
             paramArray[paramItem[0]] = paramItem[1];
         }
 
-        const user = await eel.select_by_id(paramArray['id'])();
+        const user = await eel.raed_by_id(paramArray['id'])();
 
         let preview = document.querySelector('#preview');
         preview.src = '.' + user.img_path;

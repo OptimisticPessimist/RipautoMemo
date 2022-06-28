@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>りぱうとメモ</title>
+    <title>りぱうとメモ(2022.b1)</title>
     <link href="css/memo.css" rel="stylesheet">
     <script type="text/javascript" src="/eel.js"></script>
     <script type="text/javascript" src="js/common.js"></script>
@@ -18,13 +18,12 @@
             <textarea rows="33" cols="60" name="input-memo" id="input-memo"></textarea>
         </label>
         <button onclick="writeUser()">データ書込</button>
-        <button onclick="">データ削除</button>
+        <button onclick="deleteUser()">データ削除</button>
         <button onclick="link('search.html')">一覧</button>
     </div>
     <div id="picture">
         <img src="img/l_e_others_501.png" width="384" height="216" alt="" id="preview">
         <input type="file" accept="image/jpeg, image/png" onchange="previewImage(this);" name="information">
-        <button>画像取消</button>
     </div>
     <div id="information">
         <label>　登録名: <input type="text" name="information" size="40" id="user-name"></label><br>

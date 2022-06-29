@@ -14,14 +14,17 @@ Are there situations when you meet a lot of people and you forget when/where/who
 Hopefully, the conversation between you and friends will last forever.
 
 ## Demo
-ここにGIF動画を貼り付ける
+![Demo](RipautoDemo.gif)
 
 ## Requirement
 - OS: Windows 10 / 11 (64 bit)
 - Browser: Chrome
 
 ## Usage
-1. run exe
+1. [Download latest version zip file](https://github.com/OptimisticPessimist/RipautoMemo/releases) and unzip
+2. run `ripauto_memo.exe`
+
+We want to support multilingual include English, Chinese(簡体字/繁体字), Korean, and so on. Just a moment please.
 
 ## Licence
 The MIT License

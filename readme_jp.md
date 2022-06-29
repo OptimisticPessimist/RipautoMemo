@@ -22,7 +22,7 @@ VRChatでたくさんの人と出会うと、いつ/どこで/誰と/どんな�
 - OS: Windows 10 / 11 (64 bit)
 - ブラウザ: Chrome
 
-Macで動作させたい場合は、Python 3.10 をインストールした後、GitHubから `git clone` して `ripauto_note.py` を起動させてください。
+Macで動作させたい場合は、Python 3.10 をインストールした後、GitHubから `git clone` して `ripauto_memo.py` を起動させてください。
 
 ## 使用方法
 1. `ripauto_memo`フォルダ内の`ripauto_memo.exe`ファイルを実行する

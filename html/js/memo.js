@@ -138,6 +138,6 @@ async function openVrChatHome() {
 
         const user = await eel.raed_by_id(paramArray['id'])();
         const uid = user.uid;
-        const vrcHome = window.open('https://vrchat.com/home/user/' + uid);
+        window.open('https://vrchat.com/home/user/' + uid);
     }
 }

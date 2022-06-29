@@ -1,4 +1,3 @@
-
 async function writeUser() {
     let element = document.getElementsByName('information');
     let picture = element[0].value;
@@ -74,7 +73,7 @@ async function previewImage(obj) {
      * Show and fitting file image
      */
     let fileReader = new FileReader();
-    fileReader.onload = (function() {
+    fileReader.onload = (function () {
         document.getElementById("preview").src = fileReader.result;
     });
     fileReader.readAsDataURL(obj.files[0]);
@@ -122,5 +121,23 @@ async function getFriend() {
         uid.value = user.uid;
         let memo = document.querySelector('#input-memo');
         memo.value = user.memo;
+    }
+}
+
+
+async function openVrChatHome() {
+    const urlParam = location.search.substring(1);
+    if (urlParam) {
+        const param = urlParam.split('&');
+        let paramArray = Array();
+        let item;
+        for (item of param) {
+            const paramItem = item.split('=');
+            paramArray[paramItem[0]] = paramItem[1];
+        }
+
+        const user = await eel.raed_by_id(paramArray['id'])();
+        const uid = user.uid;
+        const vrcHome = window.open('https://vrchat.com/home/user/' + uid);
     }
 }

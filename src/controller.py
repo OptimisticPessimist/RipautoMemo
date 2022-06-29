@@ -162,5 +162,3 @@ class Controller:
         result["uid"] = user.uid
         result["memo"] = user.memo
         return result
-
-

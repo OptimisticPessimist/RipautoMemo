@@ -3,6 +3,8 @@ Ripauto Memo
 
 [日本語はこちら](readme_jp.md)
 
+We want to support multilingual include English, Chinese(簡体字/繁体字), Korean, and so on. Just a moment please.
+
 ## Overview
 It is a database management system that you met friends in VRChat.
 
@@ -23,8 +25,6 @@ Hopefully, the conversation between you and friends will last forever.
 ## Usage
 1. [Download latest version zip file](https://github.com/OptimisticPessimist/RipautoMemo/releases) and unzip
 2. run `ripauto_memo.exe`
-
-We want to support multilingual include English, Chinese(簡体字/繁体字), Korean, and so on. Just a moment please.
 
 ## Licence
 The MIT License

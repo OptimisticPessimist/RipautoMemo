@@ -6,8 +6,6 @@ from src.domain import Friend
 DIR_WATCH = f"C:\\Users\\{getpass.getuser()}\\AppData\\LocalLow\\VRChat\\VRChat\\"
 PATTERNS = "output_log_??-??-??.txt"
 
-DIR_WATCH = ".\\logs\\"
-
 
 class FriendLog:
     def __init__(self) -> None:

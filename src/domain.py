@@ -80,3 +80,11 @@ class User:
                 self.tags.append("")
 
         self.memo = memo
+
+
+@dataclass
+class Friend:
+    username: str
+    uid: str
+    world: str
+    date: str

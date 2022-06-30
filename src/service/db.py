@@ -5,7 +5,7 @@ from sqlalchemy import JSON, Column, Date, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-from src.config import Config
+from src.config import TestConfig as Config
 from src.domain import User
 
 DB = Config.db
@@ -109,7 +109,7 @@ class Users(Base):  # type: ignore
         return users
 
     @staticmethod
-    def select_by_tag(tag: str) -> Any:
+    def read_by_tag(tag: str) -> Any:
         """
         Get list of users matching the keyword by name.
 
@@ -123,6 +123,39 @@ class Users(Base):  # type: ignore
         users = session.query(Users).filter(Users.tags.like(f"%{tag}%"))
         session.close()
         return users
+
+    @staticmethod
+    def read_by_id(id_: int) -> Any:
+        """
+        Get user matching the ID.
+
+        Args:
+            id_: ID of DB
+
+        Returns:
+            user datum
+        """
+        session = sessionmaker(bind=engine)()
+        target = session.query(Users).filter(Users.id == id_).one()
+        session.close()
+        target.met = str(target.met)
+        return target
+
+    @staticmethod
+    def read_by_uid(uid: str) -> Any:
+        """
+        Get user matching the UID.
+
+        Args:
+            uid: user's UID
+
+        Returns:
+            user datum
+        """
+        session = sessionmaker(bind=engine)()
+        target = session.query(Users).filter(Users.uid == uid).first()
+        session.close()
+        return target
 
     @staticmethod
     def delete_by_id(id_: str) -> None:
@@ -157,19 +190,3 @@ class Users(Base):  # type: ignore
         _write_user(data, session.query(Users).filter(Users.id == id_).first())
         session.commit()
         session.close()
-
-    @staticmethod
-    def read_by_id(id_: int) -> Any:
-        """
-
-        Args:
-            id_: ID of DB
-
-        Returns:
-            user datum
-        """
-        session = sessionmaker(bind=engine)()
-        target = session.query(Users).filter(Users.id == id_).one()
-        session.close()
-        target.met = str(target.met)
-        return target

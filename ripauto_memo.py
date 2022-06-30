@@ -4,7 +4,7 @@ from typing import Any
 import eel
 
 from src.config import Config
-from src.controller import Controller
+from src.controller import AutoRegister, Controller
 
 
 @eel.expose
@@ -64,6 +64,14 @@ def read_by_tag(tag: str) -> Any:
 @eel.expose
 def raed_by_id(id_: str) -> Any:
     return Controller.read_by_id(id_)
+
+
+@eel.expose
+def auto_register() -> None:
+    ar = AutoRegister()
+    data = ar.analysis()
+    for datum in data:
+        Controller.create_user(datum)
 
 
 if __name__ == "__main__":

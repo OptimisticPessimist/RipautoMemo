@@ -141,3 +141,8 @@ async function openVrChatHome() {
         window.open('https://vrchat.com/home/user/' + uid);
     }
 }
+
+
+async function autoRegister() {
+    eel.auto_register()();
+}

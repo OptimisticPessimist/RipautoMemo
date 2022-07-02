@@ -4,7 +4,7 @@ from typing import Any
 from src.domain import User
 
 from .service.db import Users
-from .service.watch import FriendLog
+from .service.watch import FriendLog, Scraper
 
 
 def _prepare_user(data: dict[str, str]) -> User:
@@ -196,3 +196,29 @@ class AutoRegister:
                 )
                 data.append(datum)
         return data
+
+
+class FriendsList:
+    def __init__(self) -> None:
+        self.scraper = Scraper()
+
+    def get(self, username: str, password: str) -> None:
+        friends = self.scraper.get(username, password)
+        for friend in friends:
+            if Users.read_by_uid(friend[1]):
+                continue
+            datum = dict(
+                uid=friend[1],
+                user_name=friend[0],
+                nickname="",
+                img_path="",
+                met="2017-02-01",
+                place="",
+                tag1="auto-writing",
+                tag2="",
+                tag3="",
+                tag4="",
+                tag5="",
+                memo="",
+            )
+            Controller.create_user(datum)

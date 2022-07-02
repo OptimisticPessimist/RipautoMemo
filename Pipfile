@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 sqlalchemy = "*"
 eel = "*"
+selenium = "*"
+chromedriver-binary = "*"
 
 [dev-packages]
 pytest = "*"

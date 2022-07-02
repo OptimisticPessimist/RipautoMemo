@@ -205,6 +205,8 @@ class FriendsList:
     def get(self, username: str, password: str) -> None:
         friends = self.scraper.get(username, password)
         for friend in friends:
+            if Users.read_by_uid(friend[1]):
+                continue
             datum = dict(
                 uid=friend[1],
                 user_name=friend[0],

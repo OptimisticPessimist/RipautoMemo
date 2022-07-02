@@ -3,12 +3,10 @@ import glob
 import time
 
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
 
 from src.domain import Friend
-
 
 DIR_WATCH = f"C:\\Users\\{getpass.getuser()}\\AppData\\LocalLow\\VRChat\\VRChat\\"
 PATTERNS = "output_log_??-??-??.txt"
@@ -53,13 +51,12 @@ SEND_BUTTON = "e7cdgnz1"
 
 
 class Scraper:
-
     def __init__(self) -> None:
         options = Options()
-        options.add_argument("--headless")
+        # options.add_argument("--headless")
         self.driver = webdriver.Chrome(executable_path=DRIVER, options=options)
 
-    def get(self, username, password) -> list[list[str, str]]:
+    def get(self, username, password) -> list[list[str]]:
         self.driver.get(VRC_HOME)
         input_username = self.driver.find_element(By.ID, USERNAME_ID)
         input_password = self.driver.find_element(By.ID, PASSWORD_ID)
@@ -79,6 +76,7 @@ class Scraper:
         values = self.driver.find_elements(By.CLASS_NAME, FRIENDS_LIST)
         for value in values:
             results.append([value.get_attribute("textContent"), value.get_attribute("href").split("/")[-1]])
+        self.driver.close()
         return results
 
     def find_friends(self, last=None) -> None:

@@ -6,12 +6,11 @@
 }
 
 .cards__item {
-    flex-basis: 50%;
+    width: 50%;
 }
 
 .cards__item__content {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
+    display: flex;
 }
 
 .cards__item__content__value {

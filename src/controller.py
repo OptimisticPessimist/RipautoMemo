@@ -1,8 +1,10 @@
+from pathlib import Path
 from typing import Any
 
 from src.domain import User
 
 from .service.db import Users
+from .service.watch import FriendLog
 
 
 def _prepare_user(data: dict[str, str]) -> User:
@@ -137,11 +139,11 @@ class Controller:
 
         """
         tag = tag.encode("unicode-escape").decode("ascii")
-        users = Users.select_by_tag(tag)
+        users = Users.read_by_tag(tag)
         return Controller.result(users)
 
     @staticmethod
-    def read_by_id(id_: str) -> dict[str, str | list[str]]:
+    def read_by_id(id_: str) -> dict[str, str | Path]:
         """
 
 
@@ -162,3 +164,35 @@ class Controller:
         result["uid"] = user.uid
         result["memo"] = user.memo
         return result
+
+    @staticmethod
+    def read_by_uid(uid: str) -> Any:
+        user = Users.read_by_uid(uid)
+        return user
+
+
+class AutoRegister:
+    def __init__(self) -> None:
+        self.friend_logs = FriendLog()
+
+    def analysis(self) -> list[dict[str, str]]:
+        friends = self.friend_logs.analysis()
+        data = list()
+        for friend in friends:
+            if not Controller.read_by_uid(friend.uid):
+                datum = dict(
+                    uid=friend.uid,
+                    user_name=friend.username,
+                    nickname="",
+                    img_path="",
+                    met=friend.date,
+                    place=friend.world,
+                    tag1="",
+                    tag2="",
+                    tag3="",
+                    tag4="",
+                    tag5="",
+                    memo="",
+                )
+                data.append(datum)
+        return data

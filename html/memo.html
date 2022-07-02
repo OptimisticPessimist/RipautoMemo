@@ -8,7 +8,8 @@
     <script type="text/javascript" src="js/common.js"></script>
     <script type="text/javascript" src="js/memo.js"></script>
     <script>
-        window.onload = getFriend;
+        window.addEventListener('load', autoRegister);
+        window.addEventListener('load', getFriend);
     </script>
 </head>
 <body>
@@ -23,7 +24,7 @@
     </div>
     <div id="picture">
         <img src="img/l_e_others_501.png" width="384" height="216" alt="" id="preview">
-        <input type="file" accept="image/jpeg, image/png" onchange="previewImage(this);" name="information">
+        <input type="file" accept="image/jpeg, image/png, image/gif" onchange="previewImage(this);" name="information">
     </div>
     <div id="information">
         <label>　登録名: <input type="text" name="information" size="40" id="user-name"></label><br>

@@ -5,7 +5,7 @@ from sqlalchemy import JSON, Column, Date, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-from src.config import Config
+from src.config import TestConfig as Config
 from src.domain import User
 
 DB = Config.db

@@ -82,3 +82,12 @@ function hasValue(v) {
 function linkFriend(id) {
     window.location.href = 'memo.html?id=' + id;
 }
+
+
+async function getCrony() {
+    const username = window.prompt("VRChatのユーザー名を入力してください");
+    const password = window.prompt("VRChatのパスワードを入力してください");
+    await eel.get_crony(username, password)();
+
+    addAllFriends();
+}

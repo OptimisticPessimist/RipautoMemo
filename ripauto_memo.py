@@ -4,7 +4,7 @@ from typing import Any
 import eel
 
 from src.config import Config
-from src.controller import AutoRegister, Controller
+from src.controller import AutoRegister, Controller, FriendsList
 
 
 @eel.expose
@@ -72,6 +72,12 @@ def auto_register() -> None:
     data = ar.analysis()
     for datum in data:
         Controller.create_user(datum)
+
+
+@eel.expose
+def get_crony(username: str, password: str) -> None:
+    fl = FriendsList()
+    fl.get(username, password)
 
 
 if __name__ == "__main__":

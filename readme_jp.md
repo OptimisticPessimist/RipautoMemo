@@ -35,9 +35,10 @@ Macで動作させたい場合は、Python 3.10 をインストールした後�
 ## 使用方法
 1. [最新版をダウンロードし](https://github.com/OptimisticPessimist/RipautoMemo/tags)解凍する。ドット記号の後にbが付いているバージョンはβ版なので、安定版の選択を推奨します。  
    バージョン番号の付け方は `西暦.リリース番号` となっている。西暦の数が大きいグループの中で、リリース番号が一番大きいバージョンが最新安定版です。
-2. Google Chromeを起動し、ヘルプから「Chromeについて」を選択する。  
+2. (`未登録の全フレンドを登録する`機能を使う場合)  
+   Google Chromeを起動し、ヘルプから「Chromeについて」を選択する。  
    バージョン番号を確認し、[ChromeDriverの一覧から最初の数字3桁が一致する物を選ぶ](https://chromedriver.chromium.org/downloads)。  
-   Windowsを利用する場合、`win32.zip` と書かれているものをダウンロードし、解凍した中身 `chromedriver.exe` を `ripauto_memo` フォルダの中に入れる。
+   Windowsでは、`win32.zip` と書かれているものをダウンロードし、解凍したフォルダの中にある `chromedriver.exe` を `ripauto_memo` フォルダの中に入れる。(`photo`フォルダと同じフォルダ内)
 3. `ripauto_memo`フォルダ内の`ripauto_memo.exe`ファイルを実行する。
 4. フレンドを登録する場合
    1. 画面を表示したタイミングで、通常VRChatのログが保存されている隠しフォルダ `C:\Users\{USER_NAME}\AppData\LocalLow\VRChat\VRChat` から隠しファイルであるログファイル(`output_log_HH-MM-SS.txt`)を自動的に探し、フレンドを登録します。  

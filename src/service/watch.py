@@ -2,6 +2,7 @@ import getpass
 import glob
 import time
 
+
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
@@ -42,8 +43,8 @@ class FriendLog:
         return friends
 
 
-VRC_HOME = "https://vrchat.com/home"
 DRIVER = "chromedriver.exe"
+VRC_HOME = "https://vrchat.com/home"
 FRIENDS_LIST = "e176ivn28"
 USERNAME_ID = "username_email"
 PASSWORD_ID = "password"
@@ -54,7 +55,9 @@ class Scraper:
     def __init__(self) -> None:
         options = Options()
         # options.add_argument("--headless")
+        options.add_argument("log-level=3")
         self.driver = webdriver.Chrome(executable_path=DRIVER, options=options)
+        self.denominator = ""
 
     def get(self, username, password) -> list[list[str]]:
         self.driver.get(VRC_HOME)
@@ -68,8 +71,9 @@ class Scraper:
         input_username.send_keys(username)
         input_password.send_keys(password)
         send_button.submit()
-        print(self.driver.current_url)
+        print(f"[login] {self.driver.current_url}")
         time.sleep(10)
+        self.denominator = self.driver.find_element(By.CLASS_NAME, "pl-1").get_attribute("textContent")
         self.find_friends()
 
         results = list()
@@ -79,10 +83,13 @@ class Scraper:
         self.driver.close()
         return results
 
-    def find_friends(self, last=None) -> None:
+    def find_friends(self, last: str = None) -> None:
         elements = self.driver.find_elements(By.CLASS_NAME, FRIENDS_LIST)
         uid = elements[-1].get_attribute("href").split("/")[-1]
+        numerator = len(elements)
+        print(f"[loading] {numerator} / {self.denominator}")
         if uid == last:
+            print("[loading] end")
             return
         elements[-1].location_once_scrolled_into_view
         time.sleep(5)

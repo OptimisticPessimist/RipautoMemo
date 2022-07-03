@@ -18,9 +18,7 @@ function addCards(users) {
         const tags = user[4];
         const newElement = document.createElement('div');
         newElement.classList.add('cards__item');
-        let content = '<div class="card__item__content">';
-        content += '<div><img src=".' + img_path + '" width="320" height="180" onclick="linkFriend(' + id + ')"></div>';
-        content += '<div class="cards__item__content__value">';
+        let content = '<div><img src=".' + img_path + '" width="320" height="180" onclick="linkFriend(' + id + ')"></div>';
         content += '<div>ユーザー名: ' + user_name + '</div>';
         content += '<div>呼び方: ' + nickname + '</div>';
         content += '<div>';

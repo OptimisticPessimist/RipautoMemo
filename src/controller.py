@@ -78,6 +78,10 @@ class Controller:
         Users.delete_by_id(id_)
 
     @staticmethod
+    def delete_uid(uid: str) -> None:
+        Users.delete_by_uid(uid)
+
+    @staticmethod
     def result(users: list[Users]) -> list[Any]:
         """
 
@@ -204,6 +208,21 @@ class FriendsList:
 
     def get(self, username: str, password: str) -> None:
         friends = self.scraper.get(username, password)
+        tmp = dict(
+            uid="temporally user",
+            user_name="Jon Doe",
+            nickname="",
+            img_path="",
+            met="2017-02-01",
+            place="",
+            tag1="temporally user",
+            tag2="",
+            tag3="",
+            tag4="",
+            tag5="",
+            memo="",
+        )
+        Controller.create_user(tmp)
         for friend in friends:
             if Users.read_by_uid(friend[1]):
                 continue
@@ -222,3 +241,4 @@ class FriendsList:
                 memo="",
             )
             Controller.create_user(datum)
+        Controller.delete_uid("temporally user")

@@ -5,7 +5,7 @@ from sqlalchemy import JSON, Column, Date, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-from src.config import TestConfig as Config
+from src.config import Config
 from src.domain import User
 
 DB = Config.db
@@ -170,6 +170,14 @@ class Users(Base):  # type: ignore
         """
         session = sessionmaker(bind=engine)()
         target = session.query(Users).filter(Users.id == id_).one()
+        session.delete(target)
+        session.commit()
+        session.close()
+
+    @staticmethod
+    def delete_by_uid(uid: str) -> None:
+        session = sessionmaker(bind=engine)()
+        target = session.query(Users).filter(Users.uid == uid).one()
         session.delete(target)
         session.commit()
         session.close()

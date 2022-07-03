@@ -7,7 +7,7 @@ name = "pypi"
 sqlalchemy = "*"
 eel = "*"
 selenium = "*"
-chromedriver-binary = "*"
+msedge-selenium-tools = "*"
 
 [dev-packages]
 pytest = "*"

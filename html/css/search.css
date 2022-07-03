@@ -1,19 +1,12 @@
 #cards {
     display: flex;
     flex-wrap: wrap;
-    flex-direction: column;
-    justify-content: center;
+    margin-left: -8px;
+    margin-right: -8px;
 }
 
 .cards__item {
-    width: 50%;
-}
-
-.cards__item__content {
-    display: flex;
-}
-
-.cards__item__content__value {
-    display: grid;
-    grid-template-rows: 1fr 1fr 1fr;
+    flex-basis: 45%;
+    padding-left: 8px;
+    padding-right: 8px;
 }

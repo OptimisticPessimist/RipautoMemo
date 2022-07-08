@@ -191,7 +191,7 @@ class AutoRegister:
                     img_path="",
                     met=friend.date,
                     place=friend.world,
-                    tag1="",
+                    tag1="auto-writing",
                     tag2="",
                     tag3="",
                     tag4="",
